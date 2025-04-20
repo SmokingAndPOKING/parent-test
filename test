@@ -302,6 +302,94 @@ SettingsTab:CreateInput({
     end
 })
 
+SettingsTab:CreateInput({
+    Name = "Join Logger Webhook",
+    PlaceholderText = "Paste your backup webhook...",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(Text)
+        backupWebhook = Text
+        Rayfield:Notify({
+            Title = "✅ Webhook Saved",
+            Content = "Join logger webhook URL set.",
+            Duration = 4
+        })
+    end
+})
+
+SettingsTab:CreateButton({
+    Name = "🧪 Test Chat Logger",
+    Callback = function()
+        if mainWebhook and mainWebhook ~= "" then
+            local data = {
+                ["content"] = "✅ Test message from Chat Logger!"
+            }
+            local requestFunc = syn and syn.request or http_request or request or (http and http.request)
+            if requestFunc then
+                local success, result = pcall(function()
+                    return requestFunc({
+                        Url = mainWebhook,
+                        Method = "POST",
+                        Headers = {["Content-Type"] = "application/json"},
+                        Body = HttpService:JSONEncode(data)
+                    })
+                end)
+                if success then
+                    Rayfield:Notify({Title = "Success", Content = "Chat Logger test sent.", Duration = 4})
+                else
+                    Rayfield:Notify({Title = "Error", Content = "Failed to send main webhook test.", Duration = 4})
+                end
+            else
+                Rayfield:Notify({Title = "Unsupported", Content = "HTTP requests not supported.", Duration = 5})
+            end
+        else
+            Rayfield:Notify({Title = "Missing URL", Content = "Chat Logger webhook is not set.", Duration = 4})
+        end
+    end
+})
+
+SettingsTab:CreateButton({
+    Name = "🧪 Test Join Logger",
+    Callback = function()
+        if backupWebhook and backupWebhook ~= "" then
+            local data = {
+                ["content"] = "✅ Test message from Join Logger!"
+            }
+            local requestFunc = syn and syn.request or http_request or request or (http and http.request)
+            if requestFunc then
+                local success, result = pcall(function()
+                    return requestFunc({
+                        Url = backupWebhook,
+                        Method = "POST",
+                        Headers = {["Content-Type"] = "application/json"},
+                        Body = HttpService:JSONEncode(data)
+                    })
+                end)
+                if success then
+                    Rayfield:Notify({Title = "Success", Content = "Join Logger test sent.", Duration = 4})
+                else
+                    Rayfield:Notify({Title = "Error", Content = "Failed to send backup webhook test.", Duration = 4})
+                end
+            else
+                Rayfield:Notify({Title = "Unsupported", Content = "HTTP requests not supported.", Duration = 5})
+            end
+        else
+            Rayfield:Notify({Title = "Missing URL", Content = "Join Logger webhook is not set.", Duration = 4})
+        end
+    end
+})
+
+SettingsTab:CreateButton({
+    Name = "📨 Join Discord Server",
+    Callback = function()
+        setclipboard("https://discord.gg/5pvfUNfQ") -- Replace with your real invite
+        Rayfield:Notify({
+            Title = "📋 Link Copied",
+            Content = "Discord invite copied to clipboard!",
+            Duration = 4
+        })
+    end
+})
+
 -- 🌟 FPS Detection System with Effect Handling + Quality Auto Adjust
 local RunService = game:GetService("RunService")
 local Lighting = game:GetService("Lighting")
