@@ -310,8 +310,8 @@ Tab1:CreateButton({ Name = "Anti AFK", Callback = function() LoadScript("https:/
 local Tab2 = Window:CreateTab("Beaks ", 4483362458)
 local Section2 = Tab2:CreateSection("More Scripts")
 
-Tab2:CreateButton({ Name = "CMD-X", Callback = function() LoadScript("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source") end })
-Tab2:CreateButton({ Name = "Remote Spy", Callback = function() LoadScript("https://raw.githubusercontent.com/exxtremestuffs/SimpleSpySource/master/SimpleSpy.lua") end })
+Tab2:CreateButton({ Name = "Mobile Auto Bird", Callback = function() LoadScript("https://rawscripts.net/raw/Beaks-Auto-Shoot-Birds-36324") end })
+Tab2:CreateButton({ Name = "Native (HAS KEY)", Callback = function() LoadScript("https://getnative.cc/script/loader") end })
 Tab2:CreateButton({ Name = "Server Crasher (Test)", Callback = function() LoadScript("https://raw.githubusercontent.com/scriptinguniverse/fakeurl/main/servercrasher.lua") end })
 Tab2:CreateButton({ Name = "Mobile Script", Callback = function() LoadScript("https://raw.githubusercontent.com/RobloxScriptHub/MobileScript/main/script.lua") end })
 
