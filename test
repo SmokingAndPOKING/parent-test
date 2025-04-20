@@ -301,8 +301,8 @@ Tab6:CreateToggle({
 local Tab1 = Window:CreateTab("Dead Rails Scripts", 4483362458)
 local Section1 = Tab1:CreateSection("Useful Scripts")
 
-Tab1:CreateButton({ Name = "Infinite Yield", Callback = function() LoadScript("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source") end })
-Tab1:CreateButton({ Name = "Dex Explorer", Callback = function() LoadScript("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua") end })
+Tab1:CreateButton({ Name = "Speed Hub x (HAS KEY)", Callback = function() LoadScript("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua") end })
+Tab1:CreateButton({ Name = "Spider X Hub", Callback = function() LoadScript("https://raw.githubusercontent.com/SpiderScriptRB/Sta1kerH1ck-/refs/heads/main/Dead%20Rails%20SpiderXHub.txt") end })
 Tab1:CreateButton({ Name = "Fly GUI", Callback = function() LoadScript("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.txt") end })
 Tab1:CreateButton({ Name = "Anti AFK", Callback = function() LoadScript("https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn") end })
 
