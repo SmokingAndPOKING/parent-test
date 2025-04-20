@@ -1,10 +1,10 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "testing ui",
+   Name = "Polluted Hub V1.0.0",
    Icon = 0,
-   LoadingTitle = "TESTING",
-   LoadingSubtitle = "sads",
+   LoadingTitle = "Polluted",
+   LoadingSubtitle = "KEYLESS",
    Theme = "Bloom",
 
    DisableRayfieldPrompts = false,
@@ -102,7 +102,7 @@ Tab6:CreateSlider({
 local noclipEnabled = false  -- Default state for noclip toggle
 
 Tab6:CreateToggle({
-    Name = "🚷 Noclip",
+    Name = "Noclip",
     CurrentValue = noclipEnabled,
     Callback = function(Value)
         noclipEnabled = Value
@@ -141,7 +141,7 @@ local bodyGyro
 local bodyVelocity
 
 Tab6:CreateToggle({
-    Name = "🕊️ Fly",
+    Name = "Fly",
     CurrentValue = flyEnabled,
     Callback = function(Value)
         flyEnabled = Value
@@ -194,7 +194,7 @@ Tab6:CreateToggle({
 local jumpPowerBubbleGum = 50  -- Default jump power value for Bubble Gum Games
 
 Tab6:CreateSlider({
-    Name = "🦘 Jump Power (Bubble Gum Games)",
+    Name = "Jump Power (Bubble Gum Games)",
     Range = {50, 100000000},  -- Set the range for jump power
     Increment = 50,           -- Increment value for the slider
     Suffix = "",              -- No suffix for this slider
@@ -212,7 +212,7 @@ Tab6:CreateSlider({
 local jumpPowerAllGames = 50  -- Default jump power value for all games
 
 Tab6:CreateSlider({
-    Name = "🦘 Jump Power (All Games)",
+    Name = "Jump Power (All Games)",
     Range = {1, 1000},  -- Set the range for jump power to 1 to 1000
     Increment = 1,      -- Increment value for the slider
     Suffix = "",        -- No suffix for this slider
@@ -229,7 +229,7 @@ local rainbowClothingEnabled = false  -- Default state for Rainbow Clothing
 local rainbowInterval = 1  -- Time in seconds between each color change (adjust this for slower/faster)
 
 Tab6:CreateToggle({
-    Name = "🌈 Rainbow Clothing",
+    Name = "Rainbow Clothing",
     CurrentValue = rainbowClothingEnabled,
     Callback = function(Value)
         rainbowClothingEnabled = Value
