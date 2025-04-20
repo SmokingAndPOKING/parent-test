@@ -58,6 +58,245 @@ local function LoadScript(url)
     end
 end
 
+-- 🌟 Tab 0 - Main Menu
+local MainMenuTab = Window:CreateTab("Main Menu", 4483362458)
+local MainMenuSection1 = MainMenuTab:CreateSection("Welcome")
+
+
+
+local MainMenuSection2 = MainMenuTab:CreateSection("Discord")
+
+MainMenuTab:CreateButton({
+    Name = "📨 Join Discord Server",
+    Callback = function()
+        setclipboard("https://discord.gg/5pvfUNfQ") -- Replace with your real invite
+        Rayfield:Notify({
+            Title = "📋 Link Copied",
+            Content = "Discord invite copied to clipboard!",
+            Duration = 4
+        })
+    end
+})
+
+-- 🌟 Tab 6 - Character (Movement Speed, Noclip, Fly, Jump Power, Rainbow Clothing)
+local Tab6 = Window:CreateTab("Character", 4483362458)
+local Section6 = Tab6:CreateSection("Character Controls")
+
+-- 🌟 Movement Speed Slider
+local movementSpeed = 16  -- Default speed value
+
+Tab6:CreateSlider({
+    Name = "🚶 Movement Speed",
+    Range = {1, 100},  -- Set the range for the speed
+    Increment = 1,     -- Increment value for the slider
+    Suffix = " stud/s",  -- Suffix to display next to the value
+    CurrentValue = movementSpeed,
+    Callback = function(Value)
+        movementSpeed = Value
+        -- Update player's walking speed based on the slider value
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = movementSpeed
+    end
+})
+
+-- 🌟 Noclip Toggle
+local noclipEnabled = false  -- Default state for noclip toggle
+
+Tab6:CreateToggle({
+    Name = "🚷 Noclip",
+    CurrentValue = noclipEnabled,
+    Callback = function(Value)
+        noclipEnabled = Value
+        local character = game.Players.LocalPlayer.Character
+        local humanoid = character and character:FindFirstChild("Humanoid")
+
+        -- Enable or disable noclip based on the toggle state
+        if humanoid then
+            if noclipEnabled then
+                -- Enable noclip (walking through walls)
+                game:GetService("RunService").Heartbeat:Connect(function()
+                    if noclipEnabled and character then
+                        for _, part in pairs(character:GetChildren()) do
+                            if part:IsA("BasePart") then
+                                part.CanCollide = false
+                            end
+                        end
+                    end
+                end)
+            else
+                -- Disable noclip (re-enable collisions)
+                for _, part in pairs(character:GetChildren()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = true
+                    end
+                end
+            end
+        end
+    end
+})
+
+-- 🌟 Fly Toggle (Infinite Yield style fly)
+local flyEnabled = false  -- Default state for fly toggle
+local flyingPart
+local bodyGyro
+local bodyVelocity
+
+Tab6:CreateToggle({
+    Name = "🕊️ Fly",
+    CurrentValue = flyEnabled,
+    Callback = function(Value)
+        flyEnabled = Value
+        local character = game.Players.LocalPlayer.Character
+        local humanoid = character and character:FindFirstChild("Humanoid")
+
+        if flyEnabled then
+            -- Enable Fly (Infinite Yield Style)
+            if humanoid and not flyingPart then
+                flyingPart = Instance.new("Part")
+                flyingPart.Size = Vector3.new(4, 4, 4)
+                flyingPart.Shape = Enum.PartType.Ball
+                flyingPart.Anchored = false
+                flyingPart.CanCollide = false
+                flyingPart.Position = character.HumanoidRootPart.Position
+                flyingPart.Parent = workspace
+
+                -- Create BodyGyro and BodyVelocity to control flight
+                bodyGyro = Instance.new("BodyGyro")
+                bodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+                bodyGyro.CFrame = character.HumanoidRootPart.CFrame
+                bodyGyro.Parent = flyingPart
+
+                bodyVelocity = Instance.new("BodyVelocity")
+                bodyVelocity.MaxForce = Vector3.new(400000, 400000, 400000)
+                bodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                bodyVelocity.Parent = flyingPart
+
+                -- Attach flyingPart to the HumanoidRootPart
+                game:GetService("RunService").RenderStepped:Connect(function()
+                    if flyEnabled and character:FindFirstChild("HumanoidRootPart") then
+                        flyingPart.CFrame = character.HumanoidRootPart.CFrame
+                        bodyGyro.CFrame = character.HumanoidRootPart.CFrame
+                    end
+                end)
+            end
+        else
+            -- Disable Fly
+            if flyingPart then
+                flyingPart:Destroy()
+                flyingPart = nil
+                bodyGyro = nil
+                bodyVelocity = nil
+            end
+        end
+    end
+})
+
+-- 🌟 Jump Power (Bubble Gum Games) Slider
+local jumpPowerBubbleGum = 50  -- Default jump power value for Bubble Gum Games
+
+Tab6:CreateSlider({
+    Name = "🦘 Jump Power (Bubble Gum Games)",
+    Range = {50, 100000000},  -- Set the range for jump power
+    Increment = 50,           -- Increment value for the slider
+    Suffix = "",              -- No suffix for this slider
+    CurrentValue = jumpPowerBubbleGum,
+    Callback = function(Value)
+        jumpPowerBubbleGum = Value
+        -- Update the character's jump power for Bubble Gum games
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumpPowerBubbleGum
+        -- Some games may use JumpHeight instead of JumpPower, so we set both
+        game.Players.LocalPlayer.Character.Humanoid.JumpHeight = jumpPowerBubbleGum * 2  -- Adjust JumpHeight for Bubble Gum games
+    end
+})
+
+-- 🌟 Jump Power (All Games) Slider
+local jumpPowerAllGames = 50  -- Default jump power value for all games
+
+Tab6:CreateSlider({
+    Name = "🦘 Jump Power (All Games)",
+    Range = {1, 1000},  -- Set the range for jump power to 1 to 1000
+    Increment = 1,      -- Increment value for the slider
+    Suffix = "",        -- No suffix for this slider
+    CurrentValue = jumpPowerAllGames,
+    Callback = function(Value)
+        jumpPowerAllGames = Value
+        -- Update the character's jump power for all games
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = jumpPowerAllGames
+    end
+})
+
+-- 🌟 Rainbow Clothing Toggle
+local rainbowClothingEnabled = false  -- Default state for Rainbow Clothing
+local rainbowInterval = 1  -- Time in seconds between each color change (adjust this for slower/faster)
+
+Tab6:CreateToggle({
+    Name = "🌈 Rainbow Clothing",
+    CurrentValue = rainbowClothingEnabled,
+    Callback = function(Value)
+        rainbowClothingEnabled = Value
+        local character = game.Players.LocalPlayer.Character
+        local player = game.Players.LocalPlayer
+
+        -- Toggle the "Rainbow Clothing" behavior
+        if rainbowClothingEnabled then
+            -- Start a loop to continuously change colors with a delay
+            spawn(function()
+                while rainbowClothingEnabled and character do
+                    -- Apply random colors to the body parts
+                    for _, part in pairs(character:GetChildren()) do
+                        if part:IsA("BasePart") then
+                            part.Color = Color3.fromHSV(math.random(), 1, 1)
+                        end
+                    end
+
+                    -- Change clothing colors randomly as well
+                    local shirt = character:FindFirstChildOfClass("Shirt")
+                    local pants = character:FindFirstChildOfClass("Pants")
+                    if shirt then
+                        shirt.Color3 = Color3.fromHSV(math.random(), 1, 1)
+                    end
+                    if pants then
+                        pants.Color3 = Color3.fromHSV(math.random(), 1, 1)
+                    end
+
+                    -- Wait to slow down the color change
+                    wait(rainbowInterval)
+                end
+            end)
+
+            -- Hide the head to further hide the avatar
+            local head = character:FindFirstChild("Head")
+            if head then
+                head.Transparency = 1  -- Make the head completely invisible
+            end
+        else
+            -- Reset avatar appearance back to normal
+            player.DisplayName = player.Name  -- Revert back to original display name
+
+            for _, part in pairs(character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    part.Color = Color3.fromRGB(255, 255, 255)  -- Reset to default color
+                end
+            end
+
+            -- Show the head again
+            local head = character:FindFirstChild("Head")
+            if head then
+                head.Transparency = 0  -- Make the head visible again
+            end
+
+            -- Reset clothing to default colors
+            local shirt = character:FindFirstChildOfClass("Shirt")
+            local pants = character:FindFirstChildOfClass("Pants")
+            if shirt then
+                shirt.Color3 = Color3.fromRGB(255, 255, 255)  -- Default color for shirt
+            end
+            if pants then
+                pants.Color3 = Color3.fromRGB(255, 255, 255)  -- Default color for pants
+            end
+        end
+    end
+})
+
 -- 🌟 Tab 1 - Dead Rails Scripts
 local Tab1 = Window:CreateTab("Dead Rails Scripts", 4483362458)
 local Section1 = Tab1:CreateSection("Useful Scripts")
