@@ -319,15 +319,15 @@ Tab2:CreateButton({ Name = "Mobile Script", Callback = function() LoadScript("ht
 local Tab3 = Window:CreateTab("PetSim/PetsGo", 4483362458)
 local Section3 = Tab3:CreateSection("Pet Sim Scripts")
 
-Tab3:CreateButton({ Name = "Huge Games Hub", Callback = function() LoadScript("https://raw.githubusercontent.com/RunDTM/scripts/main/hugehub.lua") end })
-Tab3:CreateButton({ Name = "PetsGO Auto Farm", Callback = function() LoadScript("https://raw.githubusercontent.com/scriptpastebin/raw/main/petsgopetsim") end })
+Tab3:CreateButton({ Name = "ZapHub (PetSim HAS KEY)", Callback = function() LoadScript("https://zaphub.xyz/Exec") end })
+Tab3:CreateButton({ Name = "ZapHub (PetsGO HAS KEY)", Callback = function() LoadScript("https://zaphub.xyz/Exec") end })
 Tab3:CreateButton({ Name = "Project WD Hub", Callback = function() LoadScript("https://raw.githubusercontent.com/Project-WD/scripts/main/main.lua") end })
 
 -- 🌟 Tab 4 - JailBreak
 local Tab4 = Window:CreateTab("JailBreak", 4483362458)
 local Section4 = Tab4:CreateSection("JailBreak Scripts")
 
-Tab4:CreateButton({ Name = "Vynixius Jailbreak", Callback = function() LoadScript("https://raw.githubusercontent.com/RegularVynixu/Jailbreak/main/Main.lua") end })
+Tab4:CreateButton({ Name = "Blitz", Callback = function() LoadScript("https://raw.githubusercontent.com/BlitzIsKing/UniversalFarm/main/Loader/Regular") end })
 Tab4:CreateButton({ Name = "Admin GUI", Callback = function() LoadScript("https://pastebin.com/raw/Bjz3U2bW") end })
 Tab4:CreateButton({ Name = "ThunderZ GUI", Callback = function() LoadScript("https://pastebin.com/raw/VLktG2yY") end })
 
